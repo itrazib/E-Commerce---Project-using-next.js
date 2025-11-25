@@ -1,10 +1,14 @@
-import React from "react";
+import Link from 'next/link'
+import React from 'react'
 
-export default async function Products() {
-  const data = await fetch("http://localhost:5000/products");
-  const products = await data.json();
+export default async function AllProducts() {
+    const data = await fetch('http://localhost:5000/all-products')
+    const products = await data.json()
   return (
-    <div className="grid grid-cols-3 gap-5">
+    
+   <div>
+    <div className='font-bold text-5xl text-center my-8'> <h1>All Products</h1></div>
+     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {products.map((product) => (
         <div
           key={product._id}
@@ -30,13 +34,14 @@ export default async function Products() {
               </span>
             </div>
             <div className="card-actions mt-4">
-              <button className="btn btn-outline btn-primary w-full">
+              <Link href={`/products/${product._id}`}><button className="btn btn-outline btn-primary w-full">
                 View Details
-              </button>
+              </button></Link>
             </div>
           </div>
         </div>
       ))}
     </div>
-  );
+   </div>
+  )
 }

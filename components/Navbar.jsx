@@ -1,16 +1,24 @@
 "use client";
 
+import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
+
 import Link from "next/link";
 import { useState } from "react";
 
-export default function Navbar({ user }) {
+export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { data: session } = useSession();
+  // console.log(session)
 
   return (
     <div className="navbar bg-base-100 shadow-md sticky top-0 z-50">
       {/* Logo */}
       <div className="flex-1">
-        <a className="text-2xl font-bold text-primary">MyStore</a>
+        <Link className="text-2xl font-bold text-primary" href="/">
+          {" "}
+          MyStore
+        </Link>
       </div>
 
       {/* Desktop Menu */}
@@ -37,12 +45,15 @@ export default function Navbar({ user }) {
       {/* Right Side Buttons */}
       <div className="flex-none">
         {/* If user is logged in */}
-        {user ? (
+        {session ? (
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img
-                  src={user.photoURL || "https://i.ibb.co/2WKj5Yn/user.png"}
+                <Image
+                  src={session.user.image}
+                  width={50}
+                  height={50}
+                  alt="profile"
                 />
               </div>
             </label>
@@ -52,35 +63,40 @@ export default function Navbar({ user }) {
               className="menu menu-sm dropdown-content mt-3 p-3 shadow bg-base-100 rounded-box w-52"
             >
               <li className="font-semibold text-center border-b pb-2">
-                {user.name}
-                <span className="text-xs text-gray-500">{user.email}</span>
+                {session.user.name}
+                <span className="text-xs text-gray-500">
+                  {session.user.email}
+                </span>
               </li>
 
               <li>
-                <a>Add Product</a>
+                <Link href='/addProducts'>Add Product</Link>
               </li>
               <li>
                 <a>Manage Products</a>
               </li>
 
               <li>
-                <a className="text-error">Logout</a>
+                <button onClick={() => signOut({ callbackUrl: "/" })} className="text-error">Logout</button>
               </li>
             </ul>
           </div>
         ) : (
           // If user is NOT logged in
           <div className="hidden lg:flex gap-3">
-            <li>
-              <Link href="/login" className="btn btn-outline mt-2">
-                Login
-              </Link>
-            </li>
-            <li>
-              <Link href="/register" className="btn btn-primary mt-2">
-                Register
-              </Link>
-            </li>
+            <Link
+              href="/login"
+              className="btn bg-gradient-to-r from-purple-500 to-blue-500 mt-2"
+            >
+              Login
+            </Link>
+
+            <Link
+              href="/register"
+              className="btn bg-gradient-to-r from-purple-500 to-blue-500 mt-2"
+            >
+              Register
+            </Link>
           </div>
         )}
 
@@ -127,7 +143,7 @@ export default function Navbar({ user }) {
             <Link href="/contact">Contact</Link>
           </li>
 
-          {!user && (
+          {!session && (
             <>
               <li>
                 <Link href="/login" className="btn btn-outline mt-2">
@@ -142,16 +158,18 @@ export default function Navbar({ user }) {
             </>
           )}
 
-          {user && (
+          {session && (
             <>
               <li>
-                <a>Add Product</a>
+                <Link href='/addProducts'>Add Product</Link>
               </li>
               <li>
                 <a>Manage Products</a>
               </li>
               <li>
-                <a className="text-error">Logout</a>
+                <button onClick={() => signOut({ callbackUrl: "/" })} className="text-error">
+                  Logout
+                </button>
               </li>
             </>
           )}
