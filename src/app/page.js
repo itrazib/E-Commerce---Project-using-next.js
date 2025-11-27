@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Banner from "../../components/Banner";
-import Products from "../../components/Products";
+import Banner from "../components/Banner";
+import Products from "../components/Products";
 
 export default function Home() {
   return (

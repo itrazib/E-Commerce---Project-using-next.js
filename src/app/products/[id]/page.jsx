@@ -1,4 +1,4 @@
-import Button from "../../../../components/Button";
+import Button from "../../../components/Button";
 
 export default async function ProductsDetails({ params }) {
   const { id } = await params;
@@ -56,9 +56,12 @@ export default async function ProductsDetails({ params }) {
         </div>
       </div>
       <div className="flex justify-end gap-5 my-5">
-        <button className="btn text-white bg-gradient-to-r from-purple-500 to-blue-500">Buy Now</button>
-        <button className="btn text-white bg-gradient-to-r from-orange-500 to-red-500">Add to Cart</button>
-        
+        <button className="btn text-white bg-gradient-to-r from-purple-500 to-blue-500">
+          Buy Now
+        </button>
+        <button className="btn text-white bg-gradient-to-r from-orange-500 to-red-500">
+          Add to Cart
+        </button>
       </div>
     </div>
   );

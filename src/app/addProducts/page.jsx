@@ -1,6 +1,15 @@
+"use client"
+import { useSession } from 'next-auth/react'
 import React from 'react'
 
-export default function page() {
+export default function AddProducts() {
+  const { data: session, status } = useSession()
+
+  if (status === "loading") return <p>Loading...</p>
+
+  if (!session) {
+    redirect("/login")
+  }
   
   return (
     <div className="max-w-4xl mx-auto mt-12 p-8 bg-white/70 backdrop-blur-md shadow-2xl rounded-2xl border border-gray-200">
