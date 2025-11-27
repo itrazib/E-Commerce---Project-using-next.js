@@ -1,10 +1,9 @@
+
 import Link from "next/link";
+export default async  function Products() {
+  const data = await fetch("https://nextjs-project-server.vercel.app/products")
+  const products = await data.json()
 
-import React from "react";
-
-export default async function Products() {
-  const data = await fetch("http://localhost:5000/products");
-  const products = await data.json();
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {products.map((product) => (

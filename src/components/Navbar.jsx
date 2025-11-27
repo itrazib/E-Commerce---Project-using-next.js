@@ -15,7 +15,7 @@ export default function Navbar() {
     <div className="navbar bg-base-100 shadow-md sticky top-0 z-50">
       {/* Logo */}
       <div className="flex-1">
-        <Link className="text-2xl font-bold text-primary" href="/">
+        <Link  className="text-2xl font-bold ml-2 bg-gradient-to-r from-purple-500 to-blue-500 bg-clip-text text-transparent" href="/">
           {" "}
           MyStore
         </Link>
@@ -50,7 +50,7 @@ export default function Navbar() {
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
                 <Image
-                  src={session.user.image}
+                  src={session.user.image || "https://i.ibb.co/8LQrxpZY/profile.png"}
                   width={50}
                   height={50}
                   alt="profile"
@@ -73,7 +73,8 @@ export default function Navbar() {
                 <Link href='/addProducts'>Add Product</Link>
               </li>
               <li>
-                <a>Manage Products</a>
+                <Link href='/manageProducts'>Manage Products</Link>
+              
               </li>
 
               <li>
@@ -86,14 +87,14 @@ export default function Navbar() {
           <div className="hidden lg:flex gap-3">
             <Link
               href="/login"
-              className="btn bg-gradient-to-r from-purple-500 to-blue-500 mt-2"
+              className="btn bg-gradient-to-r from-purple-500 to-blue-500 mt-2 text-white"
             >
               Login
             </Link>
 
             <Link
               href="/register"
-              className="btn bg-gradient-to-r from-purple-500 to-blue-500 mt-2"
+              className="btn bg-gradient-to-r from-purple-500 to-blue-500 mt-2 text-white"
             >
               Register
             </Link>
@@ -146,12 +147,12 @@ export default function Navbar() {
           {!session && (
             <>
               <li>
-                <Link href="/login" className="btn btn-outline mt-2">
+                <Link href="/login"  className="btn bg-gradient-to-r from-purple-500 to-blue-500 mt-2 text-white">
                   Login
                 </Link>
               </li>
               <li>
-                <Link href="/register" className="btn btn-primary mt-2">
+                <Link href="/register"  className="btn bg-gradient-to-r from-purple-500 to-blue-500 mt-2 text-white">
                   Register
                 </Link>
               </li>

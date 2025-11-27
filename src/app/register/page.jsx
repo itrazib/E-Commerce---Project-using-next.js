@@ -1,4 +1,5 @@
 "use client"
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
@@ -60,6 +61,7 @@ export default function Register() {
         </div>
 
         <button
+         onClick={() => signIn("google", { callbackUrl: "/" })}
           className="w-full py-2 rounded-xl border flex items-center justify-center gap-2 border-gray-300 hover:bg-gray-100"
         >
           <FcGoogle size={22} />

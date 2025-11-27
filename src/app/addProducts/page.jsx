@@ -27,7 +27,7 @@ export default function AddProducts() {
       createdAt: new Date(),
     };
 
-    fetch("http://localhost:5000/products", {
+    fetch("https://nextjs-project-server.vercel.app/products", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

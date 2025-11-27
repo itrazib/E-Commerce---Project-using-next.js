@@ -9,7 +9,7 @@ export default function AllProducts() {
   const [noResult, setNoResult] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:5000/all-products")
+    fetch("https://nextjs-project-server.vercel.app/all-products")
       .then((res) => res.json())
       .then((result) => {
         setProducts(result);
@@ -22,7 +22,7 @@ export default function AllProducts() {
   }, []);
 
   const handleSearch = () => {
-    fetch(`http://localhost:5000/search?search=${search}`)
+    fetch(`https://nextjs-project-server.vercel.app/search?search=${search}`)
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);

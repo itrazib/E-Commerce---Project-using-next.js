@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { signIn, signOut } from "next-auth/react"
+import { signIn } from "next-auth/react"
 
 export default function Login() {
   const [email, setEmail] = useState("");

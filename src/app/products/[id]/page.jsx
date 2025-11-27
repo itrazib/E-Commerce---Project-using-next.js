@@ -2,7 +2,7 @@ import Button from "../../../components/Button";
 
 export default async function ProductsDetails({ params }) {
   const { id } = await params;
-  const data = await fetch(`http://localhost:5000/products/${id}`);
+  const data = await fetch(`https://nextjs-project-server.vercel.app/${id}`);
   const product = await data.json();
 
   return (

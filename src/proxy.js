@@ -10,7 +10,7 @@ export async function proxy(request) {
   const { pathname } = request.nextUrl;
 
   
-  const protectedRoutes = ["/addProducts"];
+  const protectedRoutes = ["/addProducts", "/manageProducts"];
 
   
   if (!token && protectedRoutes.some((route) => pathname.startsWith(route))) {
