@@ -1,16 +1,56 @@
-"use client"
-import { useSession } from 'next-auth/react'
-import React from 'react'
+"use client";
+
+import React from "react";
+import Swal from "sweetalert2";
 
 export default function AddProducts() {
-  const { data: session, status } = useSession()
+  const handleAddProduct = (e) => {
+    e.preventDefault();
+    const title = e.target.title.value;
+    const category = e.target.category.value;
+    const price = e.target.price.value;
+    const description = e.target.description.value;
+    const image = e.target.image.value;
+    const brand = e.target.brand.value;
+    const rating = e.target.rating.value;
+    const stock = e.target.stock.value;
 
-  if (status === "loading") return <p>Loading...</p>
+    const newProduct = {
+      title,
+      category,
+      price,
+      description,
+      image,
+      brand,
+      rating,
+      stock,
+      createdAt: new Date(),
+    };
 
-  if (!session) {
-    redirect("/login")
-  }
-  
+    fetch("http://localhost:5000/products", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newProduct),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your Product has been Added!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          e.target.reset()
+        }
+      });
+
+    console.log(newProduct);
+  };
+
   return (
     <div className="max-w-4xl mx-auto mt-12 p-8 bg-white/70 backdrop-blur-md shadow-2xl rounded-2xl border border-gray-200">
       {/* Title */}
@@ -19,11 +59,15 @@ export default function AddProducts() {
       </h2>
 
       {/* Form */}
-      <form  className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
+      <form
+        onSubmit={handleAddProduct}
+        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+      >
         {/* Product Title */}
         <div>
-          <label className="block text-sm font-semibold mb-1">Product Title</label>
+          <label className="block text-sm font-semibold mb-1">
+            Product Title
+          </label>
           <input
             type="text"
             name="title"
@@ -40,7 +84,6 @@ export default function AddProducts() {
             type="text"
             name="category"
             placeholder="Electronics"
-          
             className="input input-bordered w-full"
             required
           />
@@ -54,7 +97,6 @@ export default function AddProducts() {
             name="price"
             step="0.01"
             placeholder="59.99"
-           
             className="input input-bordered w-full"
             required
           />
@@ -67,7 +109,6 @@ export default function AddProducts() {
             type="text"
             name="brand"
             placeholder="SoundMax"
-          
             className="input input-bordered w-full"
           />
         </div>
@@ -80,7 +121,6 @@ export default function AddProducts() {
             name="rating"
             step="0.1"
             placeholder="4.5"
-            
             className="input input-bordered w-full"
           />
         </div>
@@ -92,19 +132,19 @@ export default function AddProducts() {
             type="number"
             name="stock"
             placeholder="25"
-           
             className="input input-bordered w-full"
           />
         </div>
 
         {/* Image URL */}
         <div className="md:col-span-2">
-          <label className="block text-sm font-semibold mb-1">Product Image URL</label>
+          <label className="block text-sm font-semibold mb-1">
+            Product Image URL
+          </label>
           <input
             type="url"
             name="image"
             placeholder="https://i.ibb.co/0pcZ8Z8D/blutooth.webp"
-           
             className="input input-bordered w-full"
             required
           />
@@ -112,11 +152,12 @@ export default function AddProducts() {
 
         {/* Description */}
         <div className="md:col-span-2">
-          <label className="block text-sm font-semibold mb-1">Product Description</label>
+          <label className="block text-sm font-semibold mb-1">
+            Product Description
+          </label>
           <textarea
             name="description"
             placeholder="Enter full product description..."
-          
             className="textarea textarea-bordered w-full h-36"
             required
           ></textarea>
@@ -130,5 +171,5 @@ export default function AddProducts() {
         </div>
       </form>
     </div>
-  )
+  );
 }
